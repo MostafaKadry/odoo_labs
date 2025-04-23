@@ -1,0 +1,42 @@
+<odoo>
+    <record id="task_list_view" model="ir.ui.view">
+        <field name="name">book.list.view</field>
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="title"></field>
+                <field name="start_at"></field>
+                <field name="end_at"></field>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="task_form_view" model="ir.ui.view">
+        <field name="name">book.form.view</field>
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <field name="title"></field>
+                    <field name="start_at"></field>
+                    <field name="end_at"></field>
+                    <field name="tag"></field>
+                    <field name="image"></field>
+                    <field name="description"></field>
+                    <field name="state"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="task_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">todo.task</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <menuitem id="menu_todo_item_task" name="All Tasks" parent="menu_todo_task" action=""/>
+</odoo>
