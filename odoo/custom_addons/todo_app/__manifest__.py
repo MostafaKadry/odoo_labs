@@ -7,9 +7,11 @@
     'category': 'Custom Addons',
     'depends': ['base'],
     'data': [
-        'views/base_menus.xml',
-        'views/tasks.xml',
         'security/ir.model.access.csv',
+        'views/base_menus.xml',
+        # 'views/tasks.xml',
+        # 'views/user.xml',
+
     ],
     'application': True,
 }

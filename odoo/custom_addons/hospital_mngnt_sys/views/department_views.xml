@@ -1,0 +1,52 @@
+<odoo>
+    <!-- Department List View -->
+    <record id="view_department_list" model="ir.ui.view">
+        <field name="name">department.list.view</field>
+        <field name="model">hospital.department</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" string="Department"/>
+                <field name="capacity" string="Bed Capacity"/>
+                <field name="is_opened" string="Status"/>
+                <field name="current_occupancy" string="Current Patients"/>
+                <field name="patient_ids" string="Patients"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Department Form View -->
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">department.form.view</field>
+        <field name="model">hospital.department</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Department Info">  <!-- Added group string -->
+                            <field name="capacity"/>
+                            <field name="is_opened"/>
+                            <field name="current_occupancy" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Patients">
+                            <field name="patient_ids">
+                                <list>
+                                    <field name="first_name" string="First Name"/>
+                                    <field name="last_name" string="Last Name"/>
+                                    <field name="age"/>
+                                    <field name="blood_type"/>
+                                    <field name="doctor_ids" widget="many2many_tags"/>
+                                    <field name="department_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

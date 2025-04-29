@@ -1,0 +1,36 @@
+<odoo>
+
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- Department Action -->
+    <record id="action_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">hospital.department</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hospital_root" name="Hospital"/>
+
+    <menuitem id="hospital_patient_menu"
+              name="Patients"
+              parent="hospital_root"
+              action="action_patient"/>
+    <menuitem id="hospital_doctor_menu"
+          name="Doctors"
+          parent="hospital_root"
+          action="action_doctor"/>
+        <!-- Menu Item -->
+    <menuitem id="menu_hospital_department"
+              name="Departments"
+              parent="hospital_root"
+              action="action_department"/>
+</odoo>

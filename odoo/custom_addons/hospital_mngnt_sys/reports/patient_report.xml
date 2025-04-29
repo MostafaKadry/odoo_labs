@@ -1,0 +1,111 @@
+
+<odoo>
+    <!-- Report Action -->
+    <record id="action_patient_report_print" model="ir.actions.report">
+        <field name="name">Patient Report</field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital_mngnt_sys.patient_report_template</field>
+        <field name="report_file">hospital_mngnt_sys.patient_report_template</field>
+        <field name="print_report_name">'Patient - ' + (object.name)</field>
+        <field name="binding_model_id" ref="hospital_mngnt_sys.model_hospital_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!-- Report Template -->
+    <template id="patient_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style>
+                        .patient-report table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        .patient-report th {
+                            background-color: #f2f2f2;
+                            text-align: left;
+                            padding: 8px;
+                        }
+                        .patient-report td {
+                            padding: 8px;
+                            border-bottom: 1px solid #ddd;
+                        }
+                        .header {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .patient-photo {
+                            max-height: 100px;
+                            max-width: 100px;
+                        }
+                    </style>
+                    <div class="patient-report">
+                        <div class="header">
+                            <h2>Patient Medical Report</h2>
+                            <t t-if="o.image">
+                                <img t-att-src="image_data_uri(o.image)" class="patient-photo" alt="Patient Photo"/>
+                            </t>
+                        </div>
+
+                        <table>
+                            <tr>
+                                <th colspan="2">Patient Information</th>
+                            </tr>
+                            <tr>
+                                <td>Name:</td>
+                                <td><t t-esc="o.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Age:</td>
+                                <td><t t-esc="o.age"/></td>
+                            </tr>
+                            <tr>
+                                <td>Gender:</td>
+                                <td><t t-esc="o.gender"/></td>
+                            </tr>
+                            <tr>
+                                <td>Blood Type:</td>
+                                <td><t t-esc="o.blood_type"/></td>
+                            </tr>
+                            <tr>
+                                <td>Department:</td>
+                                <td><t t-esc="o.department_id.name"/></td>
+                            </tr>
+                        </table>
+
+                        <table t-if="o.doctor_ids">
+                            <tr>
+                                <th colspan="2">Assigned Doctors</th>
+                            </tr>
+                            <t t-foreach="o.doctor_ids" t-as="doctor">
+                                <tr>
+                                    <td><t t-esc="doctor.name"/></td>
+                                    <td><t t-esc="doctor.specialization"/></td>
+                                </tr>
+                            </t>
+                        </table>
+
+                        <table t-if="o.log_ids">
+                            <tr>
+                                <th colspan="3">Medical History Log</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <t t-foreach="o.log_ids" t-as="log">
+                                <tr>
+                                    <td><t t-esc="log.date"/></td>
+                                    <td><t t-esc="log.type"/></td>
+                                    <td><t t-esc="log.description"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

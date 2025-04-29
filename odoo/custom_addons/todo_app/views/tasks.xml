@@ -13,7 +13,7 @@
     </record>
 
     <record id="task_form_view" model="ir.ui.view">
-        <field name="name">book.form.view</field>
+        <field name="name">todo.form.view</field>
         <field name="model">todo.task</field>
         <field name="arch" type="xml">
             <form>
@@ -38,5 +38,5 @@
     </record>
 
 
-    <menuitem id="menu_todo_item_task" name="All Tasks" parent="menu_todo_task" action=""/>
+    <menuitem id="menu_todo_item_task" name="All Tasks" parent="menu_todo_task" action="task_action"/>
 </odoo>

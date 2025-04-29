@@ -1,8 +1,31 @@
 #!/usr/bin/env python3
-
-# set server timezone in UTC before time module imported
-__import__('os').environ['TZ'] = 'UTC'
+import signal
+import sys
+import os
+import time
 import odoo
 
+# Set server timezone in UTC before time module is imported
+os.environ['TZ'] = 'UTC'
+
+
+def handle_shutdown(signum, frame):
+    print("\n[!] Received shutdown signal (Ctrl+C). Shutting down gracefully...")
+
+    # Add any cleanup code here (e.g., closing DB connections, stopping threads)
+    # Example: odoo.service.server.stop() if needed
+
+    print("[✓] Odoo server stopped.")
+    sys.exit(0)  # Use sys.exit() for better compatibility
+
+
+# Register signal handlers
+signal.signal(signal.SIGINT, handle_shutdown)  # Ctrl+C
+signal.signal(signal.SIGTERM, handle_shutdown)  # `kill` command
+
 if __name__ == "__main__":
-    odoo.cli.main()
+    try:
+        odoo.cli.main()
+    except Exception as e:
+        print(f"[!] Error starting Odoo: {e}", file=sys.stderr)
+        sys.exit(1)
